@@ -69,6 +69,76 @@ public class BlueDEVAutonomous extends LinearOpMode {
 
 
     //-------------------------------------------------------------------------------------------
+    public void moveForward(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveBackward(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveLeft(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveRight(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(-power);
+        robot.motor3.setPower(power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+    public void turnClockwise(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+    public void turnCounterClockwise(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(-power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
 
     @Override
     public void runOpMode() {
@@ -85,6 +155,8 @@ public class BlueDEVAutonomous extends LinearOpMode {
         robot.servo2 = hardwareMap.servo.get("servo2");
         robot.jewelServo = hardwareMap.servo.get("jewelServo");
         runtime.reset();
+
+
         /*Define motors*/
         /*robot.motor1 = hardwareMap.dcMotor.get("motor1");
         robot.motor2 = hardwareMap.dcMotor.get("motor2");
