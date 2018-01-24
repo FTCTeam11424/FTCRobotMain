@@ -51,13 +51,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RedDevAutonomous", group="Linear Opmode")
+@Autonomous(name="BlueDEVAutonomous", group="Linear Opmode")
 //@Disabled
 
-public class RedDEVAutonomous extends LinearOpMode {
+public class BlueLaneAutonomous extends LinearOpMode {
     HardwareDrive robot = new HardwareDrive();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private int iterationNumber = 0;
 
     //--------------------------------------------------------------------------------------------
     //Color Sensor Pre-code
@@ -68,15 +69,83 @@ public class RedDEVAutonomous extends LinearOpMode {
 
 
     //-------------------------------------------------------------------------------------------
+    public void moveForward(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveBackward(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveLeft(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+    public void moveRight(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(-power);
+        robot.motor3.setPower(power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+    public void turnClockwise(double power, long time) {
+        robot.motor1.setPower(power);
+        robot.motor2.setPower(power);
+        robot.motor3.setPower(power);
+        robot.motor4.setPower(power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+    public void turnCounterClockwise(double power, long time) {
+        robot.motor1.setPower(-power);
+        robot.motor2.setPower(-power);
+        robot.motor3.setPower(-power);
+        robot.motor4.setPower(-power);
+        sleep(time);
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+    }
+
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
 
-
-        runtime.reset();
-        /*Define motors*/
         robot.motor1 = hardwareMap.dcMotor.get("motor1");
         robot.motor2 = hardwareMap.dcMotor.get("motor2");
         robot.motor3 = hardwareMap.dcMotor.get("motor3");
@@ -85,6 +154,18 @@ public class RedDEVAutonomous extends LinearOpMode {
         robot.servo1 = hardwareMap.servo.get("servo1");
         robot.servo2 = hardwareMap.servo.get("servo2");
         robot.jewelServo = hardwareMap.servo.get("jewelServo");
+        runtime.reset();
+
+
+        /*Define motors*/
+        /*robot.motor1 = hardwareMap.dcMotor.get("motor1");
+        robot.motor2 = hardwareMap.dcMotor.get("motor2");
+        robot.motor3 = hardwareMap.dcMotor.get("motor3");
+        robot.motor4 = hardwareMap.dcMotor.get("motor4");
+        robot.clawMotor = hardwareMap.dcMotor.get("clawMotor");
+        robot.servo1 = hardwareMap.servo.get("servo1");
+        robot.servo2 = hardwareMap.servo.get("servo2");
+        robot.jewelServo = hardwareMap.servo.get("jewelServo");*/
          /*--------------------------------------------------------------------------------------------------------*/
         /*--------------------------------Color Sensor Autonomous For Jewels------------------------------------------*/
         /*---------------------------------------------------------------------------------------------------------*/
@@ -136,7 +217,6 @@ public class RedDEVAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
-
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -148,105 +228,151 @@ public class RedDEVAutonomous extends LinearOpMode {
         robot.clawMotor.setPower(1);
         sleep(1500);
         robot.clawMotor.setPower(0);
-        //sleep(1000);
-        //---------------------------------------------0-------------------------------------------
-        //Move Left Function
-      //  robot.motor1.setPower(0.35);
-      //  robot.motor2.setPower(0.35);
-       // robot.motor3.setPower(-0.35);
-       // robot.motor4.setPower(-0.35);
-       // sleep(2000);
-       // robot.motor1.setPower(0);
-       // robot.motor2.setPower(0);
-       // robot.motor3.setPower(0);
-       // robot.motor4.setPower(0);
-        //robot.motor1.setPower(-0.25);  //cw
+           // robot.motor1.setPower(0.35);
+           // robot.motor2.setPower(0.35);
+           // robot.motor3.setPower(-0.35);
+           // robot.motor4.setPower(-0.35);
+       // robot.motor1.setPower(-0.25);  //cw
        // robot.motor2.setPower(0.25); //ccw
        // robot.motor3.setPower(-0.25);  //cw
-        //robot.motor4.setPower(0.25);
-        sleep(200);
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
+       // robot.motor4.setPower(0.25);
+            sleep(350);
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            sleep(2000);
+            robot.jewelServo.setPosition(1);
         sleep(2000);
-        robot.jewelServo.setPosition(1);
-        sleep(2000);
-        boolean test;
 
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
-        if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-            telemetry.addData("Found red jewel", 0);
-            //Move Left Function
+        if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+            //Turn Function
             sleep(1000);
-            test = true;
             robot.motor1.setPower(0.35);
             robot.motor2.setPower(0.35);
             robot.motor3.setPower(0.35);
             robot.motor4.setPower(0.35);
             sleep(500);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
+            //stops
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            //Puts up servo
             sleep(1000);
-            robot.motor1.setPower(0.35);  //cw
-            robot.motor2.setPower(-0.35); //ccw
-            robot.motor3.setPower(0.35);  //cw
-            robot.motor4.setPower(-0.35);
-            sleep(2750);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
-            sleep(2750);
-            robot.servo1.setPosition(0.10);
-            robot.servo2.setPosition(0.90);
-
-        } else {
-
-            //Move Right Function
-            test = false;
+            robot.jewelServo.setPosition(0);
+            sleep(1500);
+            robot.motor1.setPower(-3.5);  //cw
+            robot.motor2.setPower(3.5); //ccw
+            robot.motor3.setPower(-3.5);  //cw
+            robot.motor4.setPower(3.5);
+            sleep(1700);
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
             sleep(1000);
             robot.motor1.setPower(-0.35);
             robot.motor2.setPower(-0.35);
             robot.motor3.setPower(-0.35);
             robot.motor4.setPower(-0.35);
+            sleep(1000);
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            sleep(1000);
+            robot.servo1.setPosition(0.10);
+            robot.servo2.setPosition(0.90);
+
+
+            //turns in opposite direction of earlier to reset position
+           /* robot.motor1.setPower(-0.35);
+            robot.motor2.setPower(-0.35);
+            robot.motor3.setPower(-0.35);
+            robot.motor4.setPower(-0.35);
             sleep(500);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
+            //stops
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0); */
+
+        } else {
+            //Turn Function
+            sleep(1000);
+            //turn function
+            robot.motor1.setPower(-0.35);
+            robot.motor2.setPower(-0.35);
+            robot.motor3.setPower(-0.35);
+            robot.motor4.setPower(-0.35);
+            sleep(500);
+            //stops
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            //raises servo
             sleep(1000);
             robot.jewelServo.setPosition(0);
-            sleep(700);
-            robot.motor1.setPower(-0.40);
+            sleep(1500);
+            robot.motor1.setPower(0.35);
+            robot.motor2.setPower(-0.35);
+            robot.motor3.setPower(0.35);
+            robot.motor4.setPower(-0.35);
+            sleep(2000);
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            sleep(500);
+            robot.motor1.setPower(0.35);
             robot.motor2.setPower(0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(0.40);
-            sleep(3250);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
+            robot.motor3.setPower(0.35);
+            robot.motor4.setPower(0.35);
+            sleep(250);
+            robot.motor1.setPower(0);
+            robot.motor2.setPower(0);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+            sleep(1000);
+            robot.servo1.setPosition(0.10);
+            robot.servo2.setPosition(0.90);
+
+
+
+            //turns in opposite direction of earlier
+            //robot.motor1.setPower(0.35);
+          //  robot.motor2.setPower(0.35);
+          //  robot.motor3.setPower(0.35);
+          //  robot.motor4.setPower(0.35);
+           // sleep(500);
+            //stops
+          //  robot.motor1.setPower(0);
+          //  robot.motor2.setPower(0);
+          //  robot.motor3.setPower(0);
+          //  robot.motor4.setPower(0);
         }
-        sleep(5000);
-        robot.jewelServo.setPosition(0);
+        sleep(3000);
+        //turn for half of first turn in the left direction.
+
         //moves forward
-      /*  robot.motor1.setPower(0.35);
-        robot.motor2.setPower(-0.35);
-        robot.motor3.setPower(0.35);
-        robot.motor4.setPower(-0.35);
-        sleep(750);
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
+        //robot.motor1.setPower(0.35);
+        //robot.motor2.setPower(-0.35);
+        //robot.motor3.setPower(0.35);
+        //robot.motor4.setPower(-0.35);
+        //sleep(750);
+        //robot.motor1.setPower(0);
+        //robot.motor2.setPower(0);
+        //robot.motor3.setPower(0);
+        //robot.motor4.setPower(0);
         //opens claw
-        robot.servo1.setPosition(0.10);
-        robot.servo2.setPosition(0.90); */
-        while (opModeIsActive() && runtime.milliseconds() < 20000) {
-            sleep(40);
+       // robot.servo1.setPosition(0.10);
+       // robot.servo2.setPosition(0.90);
+        //---------------------------------------------0-------------------------------------------
+
+        while (opModeIsActive()) {
             //----------------------------------------------------------------------------------------
             //Whileopmodeisactive color sensor code
             // convert the RGB values to HSV values.
@@ -258,13 +384,13 @@ public class RedDEVAutonomous extends LinearOpMode {
                     hsvValues);
 
             // send the info back to driver station using telemetry function.
-          //  telemetry.addData("Distance (cm)",
-          //          String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+            //telemetry.addData("Distance (cm)",
+             //       String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
            // telemetry.addData("Alpha", sensorColor.alpha());
             telemetry.addData("Red  ", sensorColor.red());
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
-            telemetry.addData("JewelDetecting", test);
+
           //  telemetry.addData("Hue", hsvValues[0]);
 
             // change the background color to match the color detected by the RGB sensor.
@@ -278,10 +404,12 @@ public class RedDEVAutonomous extends LinearOpMode {
 
             telemetry.update();
         //---------------------------------------------------------------------------------------------
+            //Move Left Function
 
 
+        }
 
-                }
+
 
             }
 
