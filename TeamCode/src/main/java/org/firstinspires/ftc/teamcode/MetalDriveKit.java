@@ -24,14 +24,16 @@ public class MetalDriveKit {
     public Servo servo2 = null;
     public Servo jewelServo = null;
     //Reference to mapped servo/motor controller
-    HardwareMap hwMap = null;
+    private HardwareMap hwMap = null;
+
+    private double prevailingSpeed = 0.35;
 
     private ElapsedTime period = new ElapsedTime();
 
     public void init (HardwareMap ahwMap) {
         hwMap = ahwMap;
 
-        // Define and connect variables to their matching motors on the robot
+        //Define and connect variables to their matching motors on the robot
         motor1 = hwMap.dcMotor.get("motor1");
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
@@ -39,9 +41,9 @@ public class MetalDriveKit {
 
         //Sets the motors to appropriate direction, FORWARD=Clockwise, REVERSE=CounterClockwise
         motor1.setDirection(DcMotor.Direction.FORWARD);
-        motor2.setDirection(DcMotor.Direction.FORWARD);
+        motor2.setDirection(DcMotor.Direction.REVERSE);
         motor3.setDirection(DcMotor.Direction.FORWARD);
-        motor4.setDirection(DcMotor.Direction.FORWARD);
+        motor4.setDirection(DcMotor.Direction.REVERSE);
         //Set all motors to zero power = no movement
         motor1.setPower(0);
         motor2.setPower(0);
@@ -58,5 +60,57 @@ public class MetalDriveKit {
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
     */
+    }
+    public void setMotors(double npower) {
+        motor1.setPower(npower);
+        motor2.setPower(npower);
+        motor3.setPower(npower);
+        motor4.setPower(npower);
+    }
+    public void waitForTick(long periodMs) {
+        long remaining = periodMs - (long) period.milliseconds();
+        //Sleep for the remaining portion of the regular cycle period.
+        if (remaining > 0) {
+            try {
+                Thread.sleep(remaining);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        //Reset the cycle clock for the next pass.
+        period.reset();
+    }
+    public void moveForward() {
+        setMotors(prevailingSpeed);
+    }
+    public void rest() {
+        setMotors(0);
+    }
+    public void moveBackward() {
+        setMotors(-prevailingSpeed);
+    }
+    public void moveLeft() {
+        motor1.setPower(-prevailingSpeed);
+        motor2.setPower(prevailingSpeed);
+        motor3.setPower(-prevailingSpeed);
+        motor4.setPower(prevailingSpeed);
+    }
+    public void moveRight() {
+        motor1.setPower(prevailingSpeed);
+        motor2.setPower(-prevailingSpeed);
+        motor3.setPower(prevailingSpeed);
+        motor4.setPower(-prevailingSpeed);
+    }
+    public void turnLeft() {
+        motor1.setPower(-prevailingSpeed);
+        motor2.setPower(prevailingSpeed);
+        motor3.setPower(prevailingSpeed);
+        motor4.setPower(-prevailingSpeed);
+    }
+    public void turnRight() {
+        motor1.setPower(prevailingSpeed);
+        motor2.setPower(-prevailingSpeed);
+        motor3.setPower(-prevailingSpeed);
+        motor4.setPower(prevailingSpeed);
     }
 }
