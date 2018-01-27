@@ -280,8 +280,4 @@ public class BlueAutonomous extends LinearOpMode {
 
 
 
-/*TO-DO*/
-/*List:
- * Write code for identifying crypt; ideally a barcode-style scan algo
- * Time complexity is about O(
- */
+//TODO: Calculate and optimize time complexity
