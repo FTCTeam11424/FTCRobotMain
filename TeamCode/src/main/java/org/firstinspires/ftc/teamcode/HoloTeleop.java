@@ -118,8 +118,6 @@ public class HoloTeleop extends OpMode {
         telemetry.addData("Left_Trigger", gamepad1.left_trigger);
        telemetry.addData("Servo1", robot.servo1.getPosition());
         telemetry.addData("Servo2", robot.servo2.getPosition());
-        int armIteratesFor = 0;
-        float prevailingSpeed;
        telemetry.addData("Motorspeed", motorPower);
         //1 = clockwise. -1 = counterclockwise
         //---------------------------------------------------------------------------------------

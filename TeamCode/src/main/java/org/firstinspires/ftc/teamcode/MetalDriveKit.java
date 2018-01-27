@@ -38,23 +38,27 @@ public class MetalDriveKit {
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
         motor4 = hwMap.dcMotor.get("motor4");
+        clawMotor = hwMap.dcMotor.get("clawMotor");
+        servo1 = hwMap.servo.get("servo1");
+        servo2 = hwMap.servo.get("servo2");
+        jewelServo = hwMap.servo.get("jewelServo");
 
         //Sets the motors to appropriate direction, FORWARD=Clockwise, REVERSE=CounterClockwise
         motor1.setDirection(DcMotor.Direction.FORWARD);
         motor2.setDirection(DcMotor.Direction.REVERSE);
         motor3.setDirection(DcMotor.Direction.FORWARD);
         motor4.setDirection(DcMotor.Direction.REVERSE);
-        //Set all motors to zero power = no movement
+        //Rest all motors
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
-        // Set all motors to run without encoders.
+        //Set all motors to run without encoders
         motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // Define and initialize ALL installed servos. Here is an example snippet:
+        //Define and initialize ALL installed servos. Here is an example snippet:
      /* leftClaw = hwMap.servo.get("left_hand");
         rightClaw = hwMap.servo.get("right_hand");
         leftClaw.setPosition(MID_SERVO);
@@ -69,7 +73,7 @@ public class MetalDriveKit {
     }
     public void waitForTick(long periodMs) {
         long remaining = periodMs - (long) period.milliseconds();
-        //Sleep for the remaining portion of the regular cycle period.
+        //Sleep for the remaining portion of the regular cycle period
         if (remaining > 0) {
             try {
                 Thread.sleep(remaining);
@@ -77,7 +81,7 @@ public class MetalDriveKit {
                 Thread.currentThread().interrupt();
             }
         }
-        //Reset the cycle clock for the next pass.
+        //Reset the cycle clock for the next pass
         period.reset();
     }
     public void moveForward() {
@@ -112,5 +116,19 @@ public class MetalDriveKit {
         motor2.setPower(-prevailingSpeed);
         motor3.setPower(-prevailingSpeed);
         motor4.setPower(prevailingSpeed);
+    }
+    public void reduceSpeed() {
+        if (prevailingSpeed == 0.5) {
+            prevailingSpeed = 0.35;
+        } else {
+            prevailingSpeed = 0.25;
+        }
+    }
+    public void increaseSpeed() {
+        if (prevailingSpeed == 0.25) {
+            prevailingSpeed = 0.35;
+        } else {
+            prevailingSpeed = 0.5;
+        }
     }
 }
