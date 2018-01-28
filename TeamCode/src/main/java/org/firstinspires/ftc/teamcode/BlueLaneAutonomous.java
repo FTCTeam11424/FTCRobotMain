@@ -258,112 +258,30 @@ public class BlueLaneAutonomous extends LinearOpMode {
 
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
         if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
-            //Turn Function
             sleep(1000);
-            robot.motor1.setPower(0.35);
-            robot.motor2.setPower(0.35);
-            robot.motor3.setPower(0.35);
-            robot.motor4.setPower(0.35);
-            sleep(500);
-            //stops
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            turnClockwise(0.35, 500);
+            sleep(1000);
             //Puts up servo
-            sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1500);
-            robot.motor1.setPower(-3.5);  //cw
-            robot.motor2.setPower(3.5); //ccw
-            robot.motor3.setPower(-3.5);  //cw
-            robot.motor4.setPower(3.5);
-            sleep(1700);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            moveBackward(0.35, 1700);
             sleep(1000);
-            robot.motor1.setPower(-0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(-0.35);
+            turnCounterClockwise(0.35, 1000);
             sleep(1000);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
-            sleep(1000);
-            robot.servo1.setPosition(0.10);
-            robot.servo2.setPosition(0.90);
-
-
-            //turns in opposite direction of earlier to reset position
-           /* robot.motor1.setPower(-0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(-0.35);
-            sleep(500);
-            //stops
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0); */
+            angleOpenClaw();
 
         } else {
-            //Turn Function
             sleep(1000);
-            //turn function
-            robot.motor1.setPower(-0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(-0.35);
-            sleep(500);
-            //stops
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            turnCounterClockwise(0.35, 500);
+            sleep(1000);
             //raises servo
-            sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1500);
-            robot.motor1.setPower(0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(0.35);
-            robot.motor4.setPower(-0.35);
-            sleep(2000);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            moveForward(0.35, 2000);
             sleep(500);
-            robot.motor1.setPower(0.35);
-            robot.motor2.setPower(0.35);
-            robot.motor3.setPower(0.35);
-            robot.motor4.setPower(0.35);
-            sleep(250);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            turnClockwise(0.35, 250);
             sleep(1000);
-            robot.servo1.setPosition(0.10);
-            robot.servo2.setPosition(0.90);
-
-
-
-            //turns in opposite direction of earlier
-            //robot.motor1.setPower(0.35);
-          //  robot.motor2.setPower(0.35);
-          //  robot.motor3.setPower(0.35);
-          //  robot.motor4.setPower(0.35);
-           // sleep(500);
-            //stops
-          //  robot.motor1.setPower(0);
-          //  robot.motor2.setPower(0);
-          //  robot.motor3.setPower(0);
-          //  robot.motor4.setPower(0);
+            angleOpenClaw();
         }
         sleep(3000);
         //turn for half of first turn in the left direction.
