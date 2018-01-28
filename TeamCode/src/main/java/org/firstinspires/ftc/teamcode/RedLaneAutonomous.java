@@ -65,11 +65,10 @@ public class RedLaneAutonomous extends LinearOpMode {
     DistanceSensor sensorDistance;
     //-------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
-
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
-        robot.motor2.setPower(power);
-        robot.motor3.setPower(-power);
+        robot.motor2.setPower(-power);
+        robot.motor3.setPower(power);
         robot.motor4.setPower(-power);
         sleep(time);
         robot.motor1.setPower(0);
@@ -90,7 +89,7 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.motor4.setPower(0);
     }
 
-    public void moveLeft(double power, long time) {
+    public void moveRight(double power, long time) {
         robot.motor1.setPower(power);
         robot.motor2.setPower(power);
         robot.motor3.setPower(-power);
@@ -102,7 +101,7 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.motor4.setPower(0);
     }
 
-    public void moveRight(double power, long time) {
+    public void moveLeft(double power, long time) {
         robot.motor1.setPower(-power);
         robot.motor2.setPower(-power);
         robot.motor3.setPower(power);
@@ -135,6 +134,7 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
     }
+
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
