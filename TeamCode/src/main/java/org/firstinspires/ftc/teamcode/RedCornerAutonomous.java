@@ -216,115 +216,39 @@ public class RedCornerAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
-
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
         sleep(1000);
-        robot.servo1.setPosition(0);
-        robot.servo2.setPosition(1);
-        sleep(500);
+        closeClaw();
+        sleep(1000);
         robot.clawMotor.setPower(1);
         sleep(1500);
         robot.clawMotor.setPower(0);
-        //sleep(1000);
-        //---------------------------------------------0-------------------------------------------
-        //Move Left Function
-      //  robot.motor1.setPower(0.35);
-      //  robot.motor2.setPower(0.35);
-       // robot.motor3.setPower(-0.35);
-       // robot.motor4.setPower(-0.35);
-       // sleep(2000);
-       // robot.motor1.setPower(0);
-       // robot.motor2.setPower(0);
-       // robot.motor3.setPower(0);
-       // robot.motor4.setPower(0);
-        //robot.motor1.setPower(-0.25);  //cw
-       // robot.motor2.setPower(0.25); //ccw
-       // robot.motor3.setPower(-0.25);  //cw
-        //robot.motor4.setPower(0.25);
-        sleep(200);
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
-        sleep(2000);
+        sleep(1000);
         robot.jewelServo.setPosition(1);
-        sleep(2000);
-        boolean test;
-
-        telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
+        sleep(1000);
         if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-            telemetry.addData("Found red jewel", 0);
-            //Move Left Function
             sleep(1000);
-            test = true;
-            robot.motor1.setPower(0.35);
-            robot.motor2.setPower(0.35);
-            robot.motor3.setPower(0.35);
-            robot.motor4.setPower(0.35);
-            sleep(500);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
-            sleep(1000);
-            robot.motor1.setPower(0.35);  //cw
-            robot.motor2.setPower(-0.35); //ccw
-            robot.motor3.setPower(0.35);  //cw
-            robot.motor4.setPower(-0.35);
-            sleep(2750);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
-            sleep(2750);
-            robot.servo1.setPosition(0.10);
-            robot.servo2.setPosition(0.90);
-
-        } else {
-
-            //Move Right Function
-            test = false;
-            sleep(1000);
-            robot.motor1.setPower(-0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(-0.35);
-            sleep(500);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
+            turnClockwise(0.35, 500);
             sleep(1000);
             robot.jewelServo.setPosition(0);
-            sleep(700);
-            robot.motor1.setPower(-0.40);
-            robot.motor2.setPower(0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(0.40);
-            sleep(3250);
-            robot.motor1.setPower(0.0);
-            robot.motor2.setPower(0.0);
-            robot.motor3.setPower(0.0);
-            robot.motor4.setPower(0.0);
+            sleep(1000);
+            turnCounterClockwise(0.35, 500);
+            sleep(1000);
+        } else {
+            sleep(1000);
+            turnCounterClockwise(0.35, 500);
+            sleep(1000);
+            robot.jewelServo.setPosition(0);
+            sleep(1000);
+            turnClockwise(0.35, 500);
+            sleep(1000);
         }
-        sleep(5000);
-        robot.jewelServo.setPosition(0);
-        //moves forward
-      /*  robot.motor1.setPower(0.35);
-        robot.motor2.setPower(-0.35);
-        robot.motor3.setPower(0.35);
-        robot.motor4.setPower(-0.35);
-        sleep(750);
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
-        //opens claw
-        robot.servo1.setPosition(0.10);
-        robot.servo2.setPosition(0.90); */
+        sleep(2000);
+        //add code here for crypt and safezone placers
+        //------------------------------------------------------------------------------------------
         while (opModeIsActive() && runtime.milliseconds() < 20000) {
             sleep(40);
             //----------------------------------------------------------------------------------------
@@ -344,7 +268,6 @@ public class RedCornerAutonomous extends LinearOpMode {
             telemetry.addData("Red  ", sensorColor.red());
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
-            telemetry.addData("JewelDetecting", test);
           //  telemetry.addData("Hue", hsvValues[0]);
 
             // change the background color to match the color detected by the RGB sensor.
