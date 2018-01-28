@@ -123,13 +123,18 @@ public class HoloTeleop extends OpMode {
         //---------------------------------------------------------------------------------------
          robot.jewelServo.setPosition(0);
           if (gamepad1.y) {
-          motorPower = 0.5;
-          }
-          if (gamepad1.a) {
-          motorPower = 0.35;
+              if (motorPower == 0.25) {
+                  motorPower = 0.35;
+              } else {
+                  motorPower = 0.5;
+              }
           }
           if (gamepad1.b) {
-          motorPower = 0.25;
+              if (motorPower == 0.5) {
+                  motorPower = 0.35;
+              } else {
+                  motorPower = 0.25;
+              }
           }
 
         //---------------------------------------------------------------------------------------
