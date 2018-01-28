@@ -261,8 +261,10 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        turnClockwise(0.35, 300);
-        moveForward(0.35, 2000);
+        turnCounterClockwise(0.35, 250);
+        sleep(500);
+        moveForward(0.35, 1500);
+        sleep(500);
         angleOpenClaw();
         //---------------------------------------------0-------------------------------------------
 

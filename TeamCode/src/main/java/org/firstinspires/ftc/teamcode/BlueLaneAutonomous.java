@@ -262,9 +262,9 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        turnClockwise(0.35, 500);
+        turnCounterClockwise(0.35, 500);
         sleep(500);
-        moveForward(0.35, 2000);
+        moveForward(0.35, 1500);
         sleep(500);
         turnClockwise(0.35, 200);
         sleep(500);

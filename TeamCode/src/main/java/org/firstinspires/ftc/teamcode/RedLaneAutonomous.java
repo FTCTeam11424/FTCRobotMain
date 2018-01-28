@@ -246,7 +246,13 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        //Add code here for crypt and safezone placers
+        turnClockwise(0.35, 500);
+        sleep(500);
+        moveForward(0.35, 1500);
+        sleep(500);
+        turnClockwise(0.35, 250);
+        sleep(500);
+        angleOpenClaw();
         //------------------------------------------------------------------------------------------
         while (opModeIsActive() && runtime.milliseconds() < 20000) {
             sleep(40);
