@@ -105,7 +105,7 @@ public class HoloTeleop extends OpMode {
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
 
-    public double motorPower = 0.35;
+    double motorPower = 0.35;
     @Override
     public void loop() {
     /*---------IF GOING REVERSE, CHANGE ALL 1s to -1, and -1 to 1-----------*/
@@ -122,21 +122,15 @@ public class HoloTeleop extends OpMode {
         //1 = clockwise. -1 = counterclockwise
         //---------------------------------------------------------------------------------------
          robot.jewelServo.setPosition(0);
-          if (gamepad1.y) {
-              if (motorPower == 0.25) {
-                  motorPower = 0.35;
-              } else {
-                  motorPower = 0.5;
-              }
-          }
-          if (gamepad1.b) {
-              if (motorPower == 0.5) {
-                  motorPower = 0.35;
-              } else {
-                  motorPower = 0.25;
-              }
-          }
-
+         if (gamepad1.a == true) {
+         motorPower = 0.25;
+         }
+         if (gamepad1.b == true) {
+         motorPower = 0.35;
+         }
+         if (gamepad1.y == true) {
+         motorPower = 0.5;
+         }
         //---------------------------------------------------------------------------------------
         //Move backward Function
             if (gamepad1.left_stick_y == 1) {
@@ -146,7 +140,7 @@ public class HoloTeleop extends OpMode {
             robot.motor4.setPower(motorPower); //ccw
         }
         //stops movement when joysticks are at 0
-            if (gamepad1.left_stick_y == 0) {
+            if (gamepad1.left_stick_y == 0 & gamepad2.right_stick_y == 0) {
             robot.motor1.setPower(0);
             robot.motor2.setPower(0);
             robot.motor3.setPower(0);
@@ -182,7 +176,7 @@ public class HoloTeleop extends OpMode {
             robot.motor1.setPower(motorPower);
             robot.motor2.setPower(motorPower);
             robot.motor3.setPower(motorPower);
-            robot.motor4.setPower(0.35);
+            robot.motor4.setPower(motorPower);
         }
         //----------------------------------------------------------------------------------------
         //rotate clockwise
