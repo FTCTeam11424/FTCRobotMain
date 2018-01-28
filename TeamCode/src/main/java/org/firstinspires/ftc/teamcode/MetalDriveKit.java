@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import java.util.HashMap;
 import java.util.concurrent.Callable;
@@ -16,7 +21,7 @@ import java.util.concurrent.Callable;
  * Metal is intended to be a more feature-rich replacement for existing drive proxy functions.
  */
 
-public class MetalDriveKit extends Object {
+public class MetalDriveKit {
     //Define servo and motor variables and set them to null
     public DcMotor motor1 = null;
     public DcMotor motor2 = null;
@@ -34,6 +39,8 @@ public class MetalDriveKit extends Object {
     private HashMap<String, Callable> intents = new HashMap<String, Callable>();
 
     private ElapsedTime period = new ElapsedTime();
+
+    VuforiaLocalizer vuforia;
 
     public void init (HardwareMap ahwMap) {
         hwMap = ahwMap;
@@ -136,13 +143,33 @@ public class MetalDriveKit extends Object {
             prevailingSpeed = 0.5;
         }
     }
-    public void sendMessage(char msg) {
-        /* Needs to be fixed to...work
-        <Callable> intent = new <Callable>();
-        */
+    public void sendMessage(String msg) {
+        Callable intent = intents.get(msg);
+        /*intent.call();*/
     }
     public void toTop() {
         //Requires testing of the robot to implement.
         //Needs to know how far the claw moves in 100 iterations
+    }
+    public String getVuMark() {
+        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTrackables.activate();
+
+        boolean found = false;
+        //WARNING: This WILL block until it finds a valid instance of the pictogram.
+        //Run it concurrently or implement a call to turn it while it looks.
+        while (!(found)) {
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+                return vuMark.name();
+            }
+        }
+        return "None"; //Never gets called, but necessary to appease Android Studio
     }
 }
