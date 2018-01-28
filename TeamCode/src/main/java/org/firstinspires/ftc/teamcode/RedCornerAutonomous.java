@@ -135,7 +135,18 @@ public class RedCornerAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
     }
-
+    public void openClaw() {
+        robot.servo1.setPosition(0);
+        robot.servo2.setPosition(1);
+    }
+    public void closeClaw() {
+        robot.servo1.setPosition(0.5);
+        robot.servo2.setPosition(0.5);
+    }
+    public void angleOpenClaw() {
+        robot.servo1.setPosition(0.10);
+        robot.servo2.setPosition(0.90);
+    }
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
