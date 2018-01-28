@@ -139,11 +139,11 @@ public class BlueLaneAutonomous extends LinearOpMode {
         robot.motor4.setPower(0);
 
     }
-    public void openClaw() {
+    public void closeClaw() {
         robot.servo1.setPosition(0);
         robot.servo2.setPosition(1);
     }
-    public void closeClaw() {
+    public void openClaw() {
         robot.servo1.setPosition(0.5);
         robot.servo2.setPosition(0.5);
     }
@@ -233,27 +233,13 @@ public class BlueLaneAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
         sleep(1000);
-        robot.servo1.setPosition(0);
-        robot.servo2.setPosition(1);
+        closeClaw();
         sleep(500);
         robot.clawMotor.setPower(1);
         sleep(1500);
         robot.clawMotor.setPower(0);
-           // robot.motor1.setPower(0.35);
-           // robot.motor2.setPower(0.35);
-           // robot.motor3.setPower(-0.35);
-           // robot.motor4.setPower(-0.35);
-       // robot.motor1.setPower(-0.25);  //cw
-       // robot.motor2.setPower(0.25); //ccw
-       // robot.motor3.setPower(-0.25);  //cw
-       // robot.motor4.setPower(0.25);
-            sleep(350);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
-            sleep(2000);
-            robot.jewelServo.setPosition(1);
+        sleep(2000);
+        robot.jewelServo.setPosition(1);
         sleep(2000);
 
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
@@ -261,29 +247,21 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(1000);
             turnClockwise(0.35, 500);
             sleep(1000);
-            //Puts up servo
             robot.jewelServo.setPosition(0);
-            sleep(1500);
-            moveBackward(0.35, 1700);
             sleep(1000);
-            turnCounterClockwise(0.35, 1000);
+            turnCounterClockwise(0.35, 500);
             sleep(1000);
-            angleOpenClaw();
 
         } else {
             sleep(1000);
             turnCounterClockwise(0.35, 500);
             sleep(1000);
-            //raises servo
             robot.jewelServo.setPosition(0);
-            sleep(1500);
-            moveForward(0.35, 2000);
-            sleep(500);
-            turnClockwise(0.35, 250);
             sleep(1000);
-            angleOpenClaw();
+            turnClockwise(0.35, 500);
+            sleep(1000);
         }
-        sleep(3000);
+        sleep(2000);
         //turn for half of first turn in the left direction.
 
         //moves forward

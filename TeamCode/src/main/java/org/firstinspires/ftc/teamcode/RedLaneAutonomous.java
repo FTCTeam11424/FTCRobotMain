@@ -134,11 +134,11 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
     }
-    public void openClaw() {
+    public void closeClaw() {
         robot.servo1.setPosition(0);
         robot.servo2.setPosition(1);
     }
-    public void closeClaw() {
+    public void openClaw() {
         robot.servo1.setPosition(0.5);
         robot.servo2.setPosition(0.5);
     }
