@@ -30,6 +30,9 @@ public class IterationCount extends OpMode {
                 robot.clawMotor.setPower(1);
                 cIteratedFor++;
             }
+            else {
+                robot.clawMotor.setPower(0);
+            }
         }
     }
 }
