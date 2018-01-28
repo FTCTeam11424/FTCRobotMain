@@ -148,8 +148,8 @@ public class BlueLaneAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.10);
-        robot.servo2.setPosition(0.90);
+        robot.servo1.setPosition(0.05);
+        robot.servo2.setPosition(0.95);
     }
     @Override
     public void runOpMode() {
@@ -262,21 +262,13 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        //turn for half of first turn in the left direction.
-
-        //moves forward
-        //robot.motor1.setPower(0.35);
-        //robot.motor2.setPower(-0.35);
-        //robot.motor3.setPower(0.35);
-        //robot.motor4.setPower(-0.35);
-        //sleep(750);
-        //robot.motor1.setPower(0);
-        //robot.motor2.setPower(0);
-        //robot.motor3.setPower(0);
-        //robot.motor4.setPower(0);
-        //opens claw
-       // robot.servo1.setPosition(0.10);
-       // robot.servo2.setPosition(0.90);
+        turnClockwise(0.35, 500);
+        sleep(500);
+        moveForward(0.35, 2000);
+        sleep(500);
+        turnClockwise(0.35, 200);
+        sleep(500);
+        angleOpenClaw();
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive()) {

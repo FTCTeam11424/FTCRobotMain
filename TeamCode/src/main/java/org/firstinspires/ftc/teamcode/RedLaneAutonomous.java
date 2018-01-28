@@ -143,8 +143,8 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.10);
-        robot.servo2.setPosition(0.90);
+        robot.servo1.setPosition(0.05);
+        robot.servo2.setPosition(0.95);
     }
     //-------------------------------------------------------------------------------------------
     @Override

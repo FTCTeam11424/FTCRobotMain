@@ -147,8 +147,8 @@ public class BlueCornerAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.10);
-        robot.servo2.setPosition(0.90);
+        robot.servo1.setPosition(0.05);
+        robot.servo2.setPosition(0.95);
     }
     @Override
     public void runOpMode() {
@@ -261,7 +261,9 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-
+        turnClockwise(0.35, 300);
+        moveForward(0.35, 2000);
+        angleOpenClaw();
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive()) {
