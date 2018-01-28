@@ -123,13 +123,18 @@ public class HoloTeleop extends OpMode {
         //---------------------------------------------------------------------------------------
          robot.jewelServo.setPosition(0);
           if (gamepad1.y) {
-          motorPower = 0.5;
+              if (motorPower == 0.25) {
+                  motorPower = 0.35;
+              } else {
+                  motorPower = 0.5;
+              }
           }
-          if (gamepad1.a) {
-          motorPower = 0.35;
-          }
-          if (gamepad1.b) {
-          motorPower = 0.25;
+          if (gamepad1.b) { //reduce speed
+              if (motorPower == 0.5) {
+                  motorPower = 0.35;
+              } else {
+                  motorPower = 0.25;
+              }
           }
 
         //---------------------------------------------------------------------------------------
@@ -237,10 +242,12 @@ public class HoloTeleop extends OpMode {
         if (gamepad2.left_stick_y == 0 && gamepad2.left_stick_x == 0) {
         robot.clawMotor.setPower(0);
         }
-
-
-
+        if (gamepad2.dpad_up) {
+              //Implement metalkit.toTop();
         }
+
+
+    }
 
 
 
