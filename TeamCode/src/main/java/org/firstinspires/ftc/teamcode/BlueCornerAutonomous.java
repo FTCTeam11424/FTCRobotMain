@@ -146,6 +146,10 @@ public class BlueCornerAutonomous extends LinearOpMode {
         robot.servo1.setPosition(0.5);
         robot.servo2.setPosition(0.5);
     }
+    public void angleOpenClaw() {
+        robot.servo1.setPosition(0.10);
+        robot.servo2.setPosition(0.90);
+    }
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -256,39 +260,14 @@ public class BlueCornerAutonomous extends LinearOpMode {
         if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             //Turn Function
             sleep(1000);
-            robot.motor1.setPower(0.35);
-            robot.motor2.setPower(0.35);
-            robot.motor3.setPower(0.35);
-            robot.motor4.setPower(0.35);
-            sleep(500);
-            //stops
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
-            //Puts up servo
+            turnClockwise(0.35, 500);
             sleep(1000);
+            //Puts up servo
             robot.jewelServo.setPosition(0);
             sleep(1500);
-            robot.motor1.setPower(-3.5);  //cw
-            robot.motor2.setPower(3.5); //ccw
-            robot.motor3.setPower(-3.5);  //cw
-            robot.motor4.setPower(3.5);
-            sleep(1700);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            moveBackward(0.35, 1700);
             sleep(1000);
-            robot.motor1.setPower(-0.35);
-            robot.motor2.setPower(-0.35);
-            robot.motor3.setPower(-0.35);
-            robot.motor4.setPower(-0.35);
-            sleep(1000);
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            turnCounterClockwise(0.35, 1000);
             sleep(1000);
             robot.servo1.setPosition(0.10);
             robot.servo2.setPosition(0.90);
