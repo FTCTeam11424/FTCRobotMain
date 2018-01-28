@@ -59,21 +59,24 @@ import java.util.Locale;
 //@Disabled
 
 public class RedAutonomous extends LinearOpMode {
+
     HardwareDrive robot = new HardwareDrive();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
     //--------------------------------------------------------------------------------------------
     //Color Sensor Pre-code
-    com.qualcomm.robotcore.hardware.ColorSensor sensorColor;
-    DistanceSensor sensorDistance;
+    private com.qualcomm.robotcore.hardware.ColorSensor sensorColor;
+    private DistanceSensor sensorDistance;
     //-------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
 
 
     //-------------------------------------------------------------------------------------------
+
     @Override
     public void runOpMode() {
+        /*
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -262,6 +265,7 @@ public class RedAutonomous extends LinearOpMode {
                 }
 
             }
+
 
         }
 

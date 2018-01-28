@@ -236,10 +236,16 @@ public class HoloTeleop extends OpMode {
         if (gamepad2.left_stick_y == 0 && gamepad2.left_stick_x == 0) {
         robot.clawMotor.setPower(0);
         }
-
-
-
+        if (gamepad2.dpad_left) {
+              for (int x = 0; x <= 150; x++) {
+                  robot.clawMotor.setPower(1);
+              }
+              robot.clawMotor.setPower(0);
         }
+
+
+
+    }
 
 
 

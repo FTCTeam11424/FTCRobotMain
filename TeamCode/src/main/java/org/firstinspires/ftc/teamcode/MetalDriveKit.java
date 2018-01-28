@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+
 /**
  * Created by dcrenshaw on 1/27/18.
  *
@@ -13,7 +16,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Metal is intended to be a more feature-rich replacement for existing drive proxy functions.
  */
 
-public class MetalDriveKit {
+public class MetalDriveKit extends Object {
     //Define servo and motor variables and set them to null
     public DcMotor motor1 = null;
     public DcMotor motor2 = null;
@@ -27,6 +30,8 @@ public class MetalDriveKit {
     private HardwareMap hwMap = null;
 
     private double prevailingSpeed = 0.35;
+
+    private HashMap<String, Callable> intents = new HashMap<String, Callable>();
 
     private ElapsedTime period = new ElapsedTime();
 
@@ -105,13 +110,13 @@ public class MetalDriveKit {
         motor3.setPower(prevailingSpeed);
         motor4.setPower(-prevailingSpeed);
     }
-    public void turnLeft() {
+    public void turnLeft() { //counterclockwise
         motor1.setPower(-prevailingSpeed);
         motor2.setPower(prevailingSpeed);
         motor3.setPower(prevailingSpeed);
         motor4.setPower(-prevailingSpeed);
     }
-    public void turnRight() {
+    public void turnRight() { //clockwise
         motor1.setPower(prevailingSpeed);
         motor2.setPower(-prevailingSpeed);
         motor3.setPower(-prevailingSpeed);
@@ -130,5 +135,14 @@ public class MetalDriveKit {
         } else {
             prevailingSpeed = 0.5;
         }
+    }
+    public void sendMessage(char msg) {
+        /* Needs to be fixed to...work
+        <Callable> intent = new <Callable>();
+        */
+    }
+    public void toTop() {
+        //Requires testing of the robot to implement.
+        //Needs to know how far the claw moves in 100 iterations
     }
 }
