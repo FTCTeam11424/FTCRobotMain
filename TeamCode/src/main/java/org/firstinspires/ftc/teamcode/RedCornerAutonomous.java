@@ -38,6 +38,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
@@ -58,13 +64,34 @@ public class RedCornerAutonomous extends LinearOpMode {
     HardwareDrive robot = new HardwareDrive();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-
+    VuforiaLocalizer vuforia;
     //--------------------------------------------------------------------------------------------
     //Color Sensor Pre-code
     com.qualcomm.robotcore.hardware.ColorSensor sensorColor;
     DistanceSensor sensorDistance;
     //-------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
+    public String getVuMark() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTrackables.activate();
+
+        boolean found = false;
+        //WARNING: This WILL block until it finds a valid instance of the pictogram.
+        //Run it concurrently or implement a call to turn it while it looks.
+        while (!(found)) {
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+                return vuMark.name();
+            }
+        }
+        return "None"; //Never gets called, but necessary to appease Android Studio
+    }
 
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
@@ -247,6 +274,17 @@ public class RedCornerAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
+        /*
+        if (getVuMark() == "LEFT") {
+
+        }
+        if (getVuMark() == "RIGHT") {
+
+        }
+        if (getVuMark() == "CENTER") {
+
+        }
+        */
         turnClockwise(0.35, 250);
         sleep(500);
         moveForward(0.35, 1500);
