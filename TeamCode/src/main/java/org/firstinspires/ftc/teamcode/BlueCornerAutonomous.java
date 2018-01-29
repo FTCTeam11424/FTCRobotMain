@@ -292,22 +292,36 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        /*
-        if (getVuMark() == "LEFT") {
 
+        if (getVuMark() == "LEFT") {
+            moveForward(0.35, 750);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "RIGHT") {
-
+            moveForward(0.35, 250);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "CENTER") {
-
+            moveForward(0.35, 500);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
-        */
-        turnCounterClockwise(0.35, 250);
-        sleep(500);
-        moveForward(0.35, 1500);
-        sleep(500);
-        angleOpenClaw();
+
+
 
         //---------------------------------------------0-------------------------------------------
 

@@ -290,24 +290,42 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        /*
-        if (getVuMark() == "LEFT") {
 
+        if (getVuMark() == "LEFT") {
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1250);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "RIGHT") {
-
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 750);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "CENTER") {
-
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
-        */
-        turnCounterClockwise(0.35, 500);
-        sleep(500);
-        moveForward(0.35, 1500);
-        sleep(500);
-        turnClockwise(0.35, 200);
-        sleep(500);
-        angleOpenClaw();
+
+
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive()) {

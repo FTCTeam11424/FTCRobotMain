@@ -34,6 +34,7 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,7 +57,7 @@ import java.util.Locale;
  */
 
 @Autonomous(name="BlueAutonomous", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class BlueAutonomous extends LinearOpMode {
     HardwareDrive robot = new HardwareDrive();

@@ -274,24 +274,41 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
         sleep(2000);
-        /*
-        if (getVuMark() == "LEFT") {
 
+        if (getVuMark() == "LEFT") {
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1250);
+            sleep(100);
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "RIGHT") {
-
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 750);
+            sleep(100);
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
         if (getVuMark() == "CENTER") {
-
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
-        */
-        turnClockwise(0.35, 500);
-        sleep(500);
-        moveForward(0.35, 1500);
-        sleep(500);
-        turnClockwise(0.35, 250);
-        sleep(500);
-        angleOpenClaw();
+
         //------------------------------------------------------------------------------------------
         while (opModeIsActive() && runtime.milliseconds() < 20000) {
             sleep(40);
