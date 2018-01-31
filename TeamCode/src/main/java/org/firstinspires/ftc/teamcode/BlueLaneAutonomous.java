@@ -289,8 +289,9 @@ public class BlueLaneAutonomous extends LinearOpMode {
             turnClockwise(0.35, 500);
             sleep(1000);
         }
-        sleep(2000);
-
+        sleep(1000);
+        turnCounterClockwise(0.35, 200);
+        sleep(250);
         if (getVuMark() == "LEFT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
