@@ -309,7 +309,7 @@ public class RedCornerAutonomous extends LinearOpMode {
         sleep(500);
         angleOpenClaw();
         //------------------------------------------------------------------------------------------
-        while (opModeIsActive() && runtime.milliseconds() < 20000) {
+        while (opModeIsActive() && runtime.milliseconds() < 30000) {
             sleep(40);
             //----------------------------------------------------------------------------------------
             //Whileopmodeisactive color sensor code

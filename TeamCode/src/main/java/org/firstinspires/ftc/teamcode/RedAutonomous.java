@@ -227,7 +227,7 @@ public class RedAutonomous extends LinearOpMode {
         //opens claw
         robot.servo1.setPosition(0.10);
         robot.servo2.setPosition(0.90); */
-        while (opModeIsActive() && runtime.milliseconds() < 20000) {
+        while (opModeIsActive() && runtime.milliseconds() < 30000) {
             sleep(40);
             //----------------------------------------------------------------------------------------
             //Whileopmodeisactive color sensor code

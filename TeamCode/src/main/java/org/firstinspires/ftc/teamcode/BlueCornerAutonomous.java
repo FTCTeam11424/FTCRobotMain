@@ -325,7 +325,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
 
         //---------------------------------------------0-------------------------------------------
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && runtime.milliseconds() < 30000) {
             //----------------------------------------------------------------------------------------
             //Whileopmodeisactive color sensor code
             // convert the RGB values to HSV values.
