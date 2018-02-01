@@ -144,6 +144,7 @@ public class MetalDriveKit {
         }
     }
     public void sendMessage(String msg) {
+        //Broken. Not sure why, but intent.call is not valid
         Callable intent = intents.get(msg);
         /*intent.call();*/
     }
@@ -161,15 +162,13 @@ public class MetalDriveKit {
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTrackables.activate();
 
-        boolean found = false;
         //WARNING: This WILL block until it finds a valid instance of the pictogram.
         //Run it concurrently or implement a call to turn it while it looks.
-        while (!(found)) {
+        while (true) {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
                 return vuMark.name();
             }
         }
-        return "None"; //Never gets called, but necessary to appease Android Studio
     }
 }
