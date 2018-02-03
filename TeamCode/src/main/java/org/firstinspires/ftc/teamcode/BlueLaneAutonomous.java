@@ -176,8 +176,8 @@ public class BlueLaneAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.05);
-        robot.servo2.setPosition(0.95);
+        robot.servo1.setPosition(0.075);
+        robot.servo2.setPosition(0.925);
     }
     @Override
     public void runOpMode() {
