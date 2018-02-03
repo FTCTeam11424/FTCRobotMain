@@ -258,19 +258,19 @@ public class RedLaneAutonomous extends LinearOpMode {
         sleep(1000);
         if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.35, 500);
+            turnClockwise(0.25, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.35, 500);
+            turnCounterClockwise(0.25, 1000);
             sleep(1000);
         } else {
             sleep(1000);
-            turnCounterClockwise(0.35, 500);
+            turnCounterClockwise(0.25, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.35, 500);
+            turnClockwise(0.25, 1000);
             sleep(1000);
         }
         sleep(2000);

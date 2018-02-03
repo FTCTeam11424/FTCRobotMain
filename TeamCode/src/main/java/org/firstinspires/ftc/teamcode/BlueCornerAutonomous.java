@@ -276,19 +276,19 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
         if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.35, 500);
+            turnClockwise(0.25, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.35, 500);
+            turnCounterClockwise(0.25, 1000);
             sleep(1000);
         } else {
             sleep(1000);
-            turnCounterClockwise(0.35, 500);
+            turnCounterClockwise(0.25, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.35, 500);
+            turnClockwise(0.25, 1000);
             sleep(1000);
         }
         sleep(2000);
