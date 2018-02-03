@@ -84,7 +84,7 @@ public class RedCornerAutonomous extends LinearOpMode {
         boolean found = false;
         //WARNING: This WILL block until it finds a valid instance of the pictogram.
         //Run it concurrently or implement a call to turn it while it looks.
-        while (!(found)) {
+       for (int x = 0; x < 30; x++)  {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
                 return vuMark.name();
