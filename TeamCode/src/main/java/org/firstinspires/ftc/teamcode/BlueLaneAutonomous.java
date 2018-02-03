@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -76,6 +77,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
 
     //-------------------------------------------------------------------------------------------
     public String getVuMark() {
+        OpenGLMatrix lastLocation = null;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
@@ -271,26 +273,34 @@ public class BlueLaneAutonomous extends LinearOpMode {
         sleep(2000);
 
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
-        if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+         if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.25, 1000);
+            turnClockwise(0.20, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.25, 1000);
+            turnCounterClockwise(0.20, 1000);
             sleep(1000);
 
         } else {
             sleep(1000);
-            turnCounterClockwise(0.25, 1000);
+            turnCounterClockwise(0.20, 1000);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.25, 1000);
+            turnClockwise(0.20, 1000);
             sleep(1000);
         }
-
-        if (getVuMark() == "LEFT") {
+        turnCounterClockwise(0.35, 500);
+        sleep(100);
+        moveForward(0.35, 1000);
+        sleep(100);
+        turnCounterClockwise(0.35, 500);
+        sleep(100);
+        moveForward(0.35, 1000);
+        sleep(100);
+        angleOpenClaw();
+         /* if (getVuMark() == "LEFT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);
@@ -323,8 +333,27 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
+        if (getVuMark() == "None") {
+            if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+                sleep(1000);
+                turnClockwise(0.25, 1000);
+                sleep(1000);
+                robot.jewelServo.setPosition(0);
+                sleep(1000);
+                turnCounterClockwise(0.25, 1000);
+                sleep(1000);
 
-
+            } else {
+                sleep(1000);
+                turnCounterClockwise(0.25, 1000);
+                sleep(1000);
+                robot.jewelServo.setPosition(0);
+                sleep(1000);
+                turnClockwise(0.25, 1000);
+                sleep(1000);
+            }
+        }
+        */
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

@@ -131,6 +131,9 @@ public class HoloTeleop extends OpMode {
          if (gamepad1.y == true) {
          motorPower = 0.5;
          }
+         if (gamepad1.x == true) {
+         motorPower = 1;
+         }
         //---------------------------------------------------------------------------------------
         //Move backward Function
             if (gamepad1.left_stick_y == 1) {
