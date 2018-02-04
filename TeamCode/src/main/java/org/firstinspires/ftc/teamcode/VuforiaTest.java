@@ -40,10 +40,19 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
+import static com.sun.tools.javac.util.Constants.format;
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -77,28 +86,6 @@ public class VuforiaTest extends LinearOpMode {
 
 
     //-------------------------------------------------------------------------------------------
-    public String getVuMark() {
-        OpenGLMatrix lastLocation = null;
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTrackables.activate();
-
-        boolean found = false;
-        //WARNING: This WILL block until it finds a valid instance of the pictogram.
-        //Run it concurrently or implement a call to turn it while it looks.
-        for (int x = 0; x < 30; x++) {
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
-                return vuMark.name();
-            }
-        }
-        return "None"; //Never gets called, but necessary to appease Android Studio
-    }
 
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
@@ -246,6 +233,8 @@ public class VuforiaTest extends LinearOpMode {
         // sometimes it helps to multiply the raw RGB values with a scale factor
         // to amplify/attentuate the measured values.
         final double SCALE_FACTOR = 255;
+        //------------------------------------------------------------------------------------------
+        //Vuforia Code
 
         // get a reference to the RelativeLayout so we can change the background
         // color of the Robot Controller app to match the hue detected by the RGB sensor.
@@ -255,104 +244,259 @@ public class VuforiaTest extends LinearOpMode {
 
         // loop and read the RGB and distance data.
         // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        // OR...  Do Not Activate the Camera Monitor View, to save power
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        /*
+         * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+         * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+         * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+         * web site at https://developer.vuforia.com/license-manager.
+         *
+         * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+         * random data. As an example, here is a example of a fragment of a valid key:
+         *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+         * Once you've obtained a license key, copy the string from the Vuforia web site
+         * and paste it in to your code onthe next line, between the double quotes.
+         */
+        parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
+
+
+        /*
+         * We also indicate which camera on the RC that we wish to use.
+         * Here we chose the back (HiRes) camera (for greater range), but
+         * for a competition robot, the front camera might be more convenient.
+         */
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        /**
+         * Load the data set containing the VuMarks for Relic Recovery. There's only one trackable
+         * in this data set: all three of the VuMarks in the game were created from this one template,
+         * but differ in their instance id information.
+         * @see VuMarkInstanceId
+         */
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
+
 
 
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
+       //-------------------------------------------------------------------------------------------
+       //Starting OpMode
         waitForStart();
-        sleep(10000);
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
-        sleep(1000);
-        closeClaw();
-        sleep(500);
-        robot.clawMotor.setPower(1);
-        sleep(1500);
-        robot.clawMotor.setPower(0);
-        sleep(2000);
-        robot.jewelServo.setPosition(1);
-        sleep(2000);
 
-        telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
-        if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
-            sleep(1000);
-            turnClockwise(0.20, 1000);
-            sleep(1000);
-            robot.jewelServo.setPosition(0);
-            sleep(1000);
-            turnCounterClockwise(0.20, 1000);
-            sleep(1000);
-        } else {
-            sleep(1000);
-            turnCounterClockwise(0.20, 1000);
-            sleep(1000);
-            robot.jewelServo.setPosition(0);
-            sleep(1000);
-            turnClockwise(0.20, 1000);
-            sleep(1000);
-        }
-        sleep(2000);
-        moveForward(0.35, 500);
-        sleep(100);
-        turnCounterClockwise(0.35, 500);
-        sleep(100);
-        moveForward(0.35, 1000);
-        sleep(100);
-        angleOpenClaw();
+        relicTrackables.activate();
 
-        if (getVuMark() == "LEFT") {
-            moveForward(0.35, 750);
-            sleep(100);
-            turnCounterClockwise(0.35, 500);
-            sleep(100);
-            moveForward(0.35, 1000);
-            sleep(100);
-            angleOpenClaw();
-        }
-        if (getVuMark() == "RIGHT") {
-            moveForward(0.35, 250);
-            sleep(100);
-            turnCounterClockwise(0.35, 500);
-            sleep(100);
-            moveForward(0.35, 1000);
-            sleep(100);
-            angleOpenClaw();
-        }
-        if (getVuMark() == "CENTER") {
-            moveForward(0.35, 500);
-            sleep(100);
-            turnCounterClockwise(0.35, 500);
-            sleep(100);
-            moveForward(0.35, 1000);
-            sleep(100);
-            angleOpenClaw();
-        }
-        if (getVuMark() == "None") {
-            if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
-        }
 
+ /*
+         * To start up Vuforia, tell it the view that we wish to use for camera monitor (on the RC phone);
+         * If no camera monitor is desired, use the parameterless constructor instead (commented out below).
+         */
 
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
+
+                /**
+                 * See if any of the instances of {@link relicTemplate} are currently visible.
+                 * {@link RelicRecoveryVuMark} is an enum which can have the following values:
+                 * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
+                 * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
+                 */
+                RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+
+                /* Found an instance of the template. In the actual game, you will probably
+                 * loop until this condition occurs, then move on to act accordingly depending
+                 * on which VuMark was visible. */
+                    telemetry.addData("VuMark", "%s visible", vuMark);
+
+                /* For fun, we also exhibit the navigational pose. In the Relic Recovery game,
+                 * it is perhaps unlikely that you will actually need to act on this pose information, but
+                 * we illustrate it nevertheless, for completeness. */
+                    OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose();
+                    telemetry.addData("Pose", format(pose));
+
+                /* We further illustrate how to decompose the pose into useful rotational and
+                 * translational components */
+                    if (pose != null) {
+                        VectorF trans = pose.getTranslation();
+                        Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+
+                        // Extract the X, Y, and Z components of the offset of the target relative to the robot
+                        double tX = trans.get(0);
+                        double tY = trans.get(1);
+                        double tZ = trans.get(2);
+
+                        // Extract the rotational components of the target relative to the robot
+                        double rX = rot.firstAngle;
+                        double rY = rot.secondAngle;
+                        double rZ = rot.thirdAngle;
+                    }
+                } else {
+                    telemetry.addData("VuMark", "not visible");
+                }
+                if (vuMark == RelicRecoveryVuMark.LEFT) {
+                    telemetry.update();
+                    sleep(10000);
+                    robot.motor1.setPower(0);
+                    robot.motor2.setPower(0);
+                    robot.motor3.setPower(0);
+                    robot.motor4.setPower(0);
+                    sleep(1000);
+                    closeClaw();
+                    sleep(500);
+                    robot.clawMotor.setPower(1);
+                    sleep(1500);
+                    robot.clawMotor.setPower(0);
+                    sleep(2000);
+                    robot.jewelServo.setPosition(1);
+                    sleep(2000);
+
+                    telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
+                    if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                    } else {
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                    }
+                    moveForward(0.35, 750);
+                    sleep(100);
+                    turnCounterClockwise(0.35, 500);
+                    sleep(100);
+                    moveForward(0.35, 1000);
+                    sleep(100);
+                    angleOpenClaw();
+                }
+
+                if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                    telemetry.update();
+                    sleep(10000);
+                    robot.motor1.setPower(0);
+                    robot.motor2.setPower(0);
+                    robot.motor3.setPower(0);
+                    robot.motor4.setPower(0);
+                    sleep(1000);
+                    closeClaw();
+                    sleep(500);
+                    robot.clawMotor.setPower(1);
+                    sleep(1500);
+                    robot.clawMotor.setPower(0);
+                    sleep(2000);
+                    robot.jewelServo.setPosition(1);
+                    sleep(2000);
+
+                    telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
+                    if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                    } else {
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                    }
+                    moveForward(0.35, 250);
+                    sleep(100);
+                    turnCounterClockwise(0.35, 500);
+                    sleep(100);
+                    moveForward(0.35, 1000);
+                    sleep(100);
+                    angleOpenClaw();
+                }
+
+                if (vuMark == RelicRecoveryVuMark.CENTER) {
+                    telemetry.update();
+                    sleep(10000);
+                    robot.motor1.setPower(0);
+                    robot.motor2.setPower(0);
+                    robot.motor3.setPower(0);
+                    robot.motor4.setPower(0);
+                    sleep(1000);
+                    closeClaw();
+                    sleep(500);
+                    robot.clawMotor.setPower(1);
+                    sleep(1500);
+                    robot.clawMotor.setPower(0);
+                    sleep(2000);
+                    robot.jewelServo.setPosition(1);
+                    sleep(2000);
+
+                    telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
+                    if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                    } else {
+                        sleep(1000);
+                        turnCounterClockwise(0.20, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnClockwise(0.20, 1000);
+                        sleep(1000);
+                    }
+                    moveForward(0.35, 500);
+                    sleep(100);
+                    turnCounterClockwise(0.35, 500);
+                    sleep(100);
+                    moveForward(0.35, 1000);
+                    sleep(100);
+                    angleOpenClaw();
+
+                }
+                if (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+                    if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
+                        sleep(1000);
+                        turnClockwise(0.25, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnCounterClockwise(0.25, 1000);
+                        sleep(1000);
+                    } else {
+                        sleep(1000);
+                        turnCounterClockwise(0.25, 1000);
+                        sleep(1000);
+                        robot.jewelServo.setPosition(0);
+                        sleep(1000);
+                        turnClockwise(0.25, 1000);
+                        sleep(1000);
+                    }
+                }
+
             //----------------------------------------------------------------------------------------
             //Whileopmodeisactive color sensor code
             // convert the RGB values to HSV values.
