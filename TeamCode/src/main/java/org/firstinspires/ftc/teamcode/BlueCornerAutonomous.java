@@ -66,7 +66,6 @@ public class BlueCornerAutonomous extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private int iterationNumber = 0;
-    VuforiaLocalizer vuforia;
 
     //--------------------------------------------------------------------------------------------
     //Color Sensor Pre-code
@@ -83,21 +82,18 @@ public class BlueCornerAutonomous extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = "AfdO5vj/////AAAAGSpM5tOflkvMvW4RzPkR14sF7ZtBXS06d04V0BL1s3kqEDkbvcN9uoHhoUg+hPC5pKqRAuhHfpPvv6sNrQgXO6gJaL3kzjIOlcOhx35mONJDaQ4lu3cYAxeNISUTaUkmlTajAcqhGeCLj+m+0lNjg2lF3UmfzocsFnwl8Oi6117s9MDLo3/HFTmYw/QLVnSsvdUW6GRg7jnDG1sJJmTXtOkgmbHAGrvqUSevnxjnEw9w2ME69SsbZof7/J3Xyl38xE1ekM8qn3/nC4CsQF5xJFJkbnI4h9aATJx5szNP1Zu1CSON4+WSzynZrd7H4zcVA3rQZvqEuMsQ5OlKsOlsIWdLctOLXSHTcXh7+1iXU+DS";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaLocalizer vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTrackables.activate();
 
-        boolean found = false;
-        //WARNING: This WILL block until it finds a valid instance of the pictogram.
-        //Run it concurrently or implement a call to turn it while it looks.
         for (int x = 0; x < 30; x++) {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
                 return vuMark.name();
             }
         }
-        return "None"; //Never gets called, but necessary to appease Android Studio
+        return "None"; //Gets called if the loop expires
     }
 
     public void moveForward(double power, long time) {
@@ -293,7 +289,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
             turnClockwise(0.20, 1000);
             sleep(1000);
         }
-        sleep(2000);
+       /* sleep(2000);
         moveForward(0.35, 500);
         sleep(100);
         turnCounterClockwise(0.35, 500);
@@ -301,8 +297,10 @@ public class BlueCornerAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-        /*
-        if (getVuMark() == "LEFT") {
+        */
+        String vupos = getVuMark();
+
+        if (vupos == "LEFT") {
             moveForward(0.35, 750);
             sleep(100);
             turnCounterClockwise(0.35, 500);
@@ -311,7 +309,8 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "RIGHT") {
+
+        if (vupos == "RIGHT") {
             moveForward(0.35, 250);
             sleep(100);
             turnCounterClockwise(0.35, 500);
@@ -320,7 +319,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "CENTER") {
+        if (vupos == "CENTER") {
             moveForward(0.35, 500);
             sleep(100);
             turnCounterClockwise(0.35, 500);
@@ -329,7 +328,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "None") {
+        if (vupos == "None") {
             if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
                 sleep(1000);
                 turnClockwise(0.25, 1000);
@@ -348,7 +347,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
                 sleep(1000);
             }
         }
- */
+
 
         //---------------------------------------------0-------------------------------------------
 

@@ -300,7 +300,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-         /* if (getVuMark() == "LEFT") {
+         /** if (getVuMark() == "LEFT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);

@@ -285,7 +285,7 @@ public class RedLaneAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-       /*  if (getVuMark() == "LEFT") {
+       /**  if (getVuMark() == "LEFT") {
             if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
                 sleep(1000);
                 turnClockwise(0.25, 1000);

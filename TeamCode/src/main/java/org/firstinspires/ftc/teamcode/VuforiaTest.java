@@ -67,7 +67,7 @@ import static com.sun.tools.javac.util.Constants.format;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueCornerAutonomous", group="Linear Opmode")
+@Autonomous(name="VuforiaTest", group="Linear Opmode")
 //@Disabled
 
 public class VuforiaTest extends LinearOpMode {
