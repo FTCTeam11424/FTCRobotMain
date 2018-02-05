@@ -291,7 +291,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
             turnClockwise(0.20, 1000);
             sleep(1000);
         }
-        turnCounterClockwise(0.35, 500);
+        /*turnCounterClockwise(0.35, 500);
         sleep(100);
         moveForward(0.35, 1000);
         sleep(100);
@@ -300,7 +300,10 @@ public class BlueLaneAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-         /** if (getVuMark() == "LEFT") {
+*/
+        String vupos = getVuMark();
+
+          if (vupos == "LEFT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);
@@ -311,7 +314,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "RIGHT") {
+        if (vupos == "RIGHT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 750);
@@ -322,7 +325,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "CENTER") {
+        if (vupos == "CENTER") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1000);
@@ -353,7 +356,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
                 sleep(1000);
             }
         }
-        */
+
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

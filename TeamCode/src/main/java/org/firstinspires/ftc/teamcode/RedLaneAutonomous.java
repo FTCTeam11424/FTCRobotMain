@@ -275,7 +275,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             turnClockwise(0.20, 1000);
             sleep(1000);
         }
-        sleep(2000);
+        /*sleep(2000);
         turnClockwise(0.15, 1000);
         sleep(100);
         moveForward(0.35, 1500);
@@ -285,24 +285,11 @@ public class RedLaneAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-       /**  if (getVuMark() == "LEFT") {
-            if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
+        */
+
+        String vupos = getVuMark();
+
+         if (vupos == "LEFT") {
             turnClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);
@@ -313,24 +300,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "RIGHT") {
-            if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
+        if (vupos == "RIGHT") {
             turnClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 750);
@@ -341,24 +311,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "CENTER") {
-            if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
+        if (vupos == "CENTER") {
             turnClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1000);
@@ -369,26 +322,18 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-        if (getVuMark() == "None") {
-            if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
+        if (vupos == "None") {
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            turnClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
-        */
+
         //------------------------------------------------------------------------------------------
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
             sleep(40);

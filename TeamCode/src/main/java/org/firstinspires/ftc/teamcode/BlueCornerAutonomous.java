@@ -256,7 +256,6 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
-        sleep(10000);
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
