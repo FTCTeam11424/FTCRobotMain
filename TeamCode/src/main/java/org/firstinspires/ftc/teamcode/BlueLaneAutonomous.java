@@ -258,9 +258,11 @@ public class BlueLaneAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+        sleep(100);
         //activates Vuforia
         String vupos = getVuMark();
-
+        telemetry.addData("VuMark", vupos);
+        telemetry.update();
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);

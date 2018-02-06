@@ -257,6 +257,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.update();
         waitForStart();
         //activates Vuforia
+        sleep(100);
         String vupos = getVuMark();
         telemetry.addData("VuMark", vupos);
         telemetry.update();
