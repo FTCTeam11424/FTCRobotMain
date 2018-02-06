@@ -256,6 +256,9 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+        //activates Vuforia
+        String vupos = getVuMark();
+
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -297,7 +300,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
         sleep(100);
         angleOpenClaw();
         */
-        String vupos = getVuMark();
+
 
         if (vupos == "LEFT") {
             moveForward(0.35, 750);
@@ -328,23 +331,13 @@ public class BlueCornerAutonomous extends LinearOpMode {
             angleOpenClaw();
         }
         if (vupos == "None") {
-            if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-            } else {
-                sleep(1000);
-                turnCounterClockwise(0.25, 1000);
-                sleep(1000);
-                robot.jewelServo.setPosition(0);
-                sleep(1000);
-                turnClockwise(0.25, 1000);
-                sleep(1000);
-            }
+            moveForward(0.35, 500);
+            sleep(100);
+            turnCounterClockwise(0.35, 500);
+            sleep(100);
+            moveForward(0.35, 1000);
+            sleep(100);
+            angleOpenClaw();
         }
 
 

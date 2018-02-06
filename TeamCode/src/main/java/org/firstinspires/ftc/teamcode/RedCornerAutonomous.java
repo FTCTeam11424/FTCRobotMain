@@ -245,6 +245,9 @@ public class RedCornerAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+        //activates Vuforia
+        String vupos = getVuMark();
+
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -275,7 +278,7 @@ public class RedCornerAutonomous extends LinearOpMode {
             turnClockwise(0.20 , 1000);
             sleep(1000);
         }
-       /* sleep(2000);
+      /*  sleep(2000);
         moveForward(0.35, 500);
         sleep(100);
         turnClockwise(0.35, 500);
@@ -283,8 +286,7 @@ public class RedCornerAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-       */
-        String vupos = getVuMark();
+        */
 
         if (vupos == "LEFT") {
             sleep(2000);

@@ -245,6 +245,9 @@ public class RedLaneAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+        //activates Vuforia
+        String vupos = getVuMark();
+
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -275,7 +278,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             turnClockwise(0.20, 1000);
             sleep(1000);
         }
-        /*sleep(2000);
+       /* sleep(2000);
         turnClockwise(0.15, 1000);
         sleep(100);
         moveForward(0.35, 1500);
@@ -287,7 +290,6 @@ public class RedLaneAutonomous extends LinearOpMode {
         angleOpenClaw();
         */
 
-        String vupos = getVuMark();
 
          if (vupos == "LEFT") {
             turnClockwise(0.35, 500);
