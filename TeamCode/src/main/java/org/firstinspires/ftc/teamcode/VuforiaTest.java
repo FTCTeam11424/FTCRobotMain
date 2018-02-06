@@ -34,6 +34,7 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -68,7 +69,7 @@ import static com.sun.tools.javac.util.Constants.format;
  */
 
 @Autonomous(name="VuforiaTest", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class VuforiaTest extends LinearOpMode {
     HardwareDrive robot = new HardwareDrive();
@@ -305,6 +306,7 @@ public class VuforiaTest extends LinearOpMode {
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
+
 
                 /**
                  * See if any of the instances of {@link relicTemplate} are currently visible.
