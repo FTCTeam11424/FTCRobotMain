@@ -176,18 +176,18 @@ public class HoloTeleop extends OpMode {
         //----------------------------------------------------------------------------------------
         //rotate counter clockwise function
         if (gamepad1.right_stick_x == 1) {
-            robot.motor1.setPower(motorPower);
-            robot.motor2.setPower(motorPower);
-            robot.motor3.setPower(motorPower);
-            robot.motor4.setPower(motorPower);
-        }
-        //----------------------------------------------------------------------------------------
-        //rotate clockwise
-        if (gamepad1.right_stick_x == -1) {
             robot.motor1.setPower(-motorPower);
             robot.motor2.setPower(-motorPower);
             robot.motor3.setPower(-motorPower);
             robot.motor4.setPower(-motorPower);
+        }
+        //----------------------------------------------------------------------------------------
+        //rotate clockwise
+        if (gamepad1.right_stick_x == -1) {
+            robot.motor1.setPower(motorPower);
+            robot.motor2.setPower(motorPower);
+            robot.motor3.setPower(motorPower);
+            robot.motor4.setPower(motorPower);
         }
         //----------------------------------------------------------------------------------------
         if (gamepad1.right_bumper == true) {

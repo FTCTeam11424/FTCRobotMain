@@ -143,7 +143,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
     }
-    public void turnClockwise(double power, long time) {
+    public void turnCounterClockwise(double power, long time) {
         robot.motor1.setPower(power);
         robot.motor2.setPower(power);
         robot.motor3.setPower(power);
@@ -154,7 +154,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
     }
-    public void turnCounterClockwise(double power, long time) {
+    public void turnClockwise(double power, long time) {
         robot.motor1.setPower(-power);
         robot.motor2.setPower(-power);
         robot.motor3.setPower(-power);
