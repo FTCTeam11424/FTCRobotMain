@@ -227,10 +227,17 @@ public class HoloTeleop extends OpMode {
         robot.servo1.setPosition(0);
         robot.servo2.setPosition(1);
         }
-        if (gamepad2.x) {
-        robot.servo1.setPosition(0.5);
-        robot.servo2.setPosition(0.5);
+
+        if (gamepad2.y) {
+        robot.servo1.setPosition(0.6);
+        robot.servo2.setPosition(0.3);
         }
+
+        if (gamepad2.x) {
+        robot.servo1.setPosition(0.55);
+        robot.servo2.setPosition(0.45);
+        }
+
         if (gamepad2.a) {
         robot.servo1.setPosition(0.1);
         robot.servo2.setPosition(0.9);

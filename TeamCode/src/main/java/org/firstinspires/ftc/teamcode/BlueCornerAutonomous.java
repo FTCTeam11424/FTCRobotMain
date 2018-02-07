@@ -342,7 +342,6 @@ public class BlueCornerAutonomous extends LinearOpMode {
             angleOpenClaw();
         }
 
-
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

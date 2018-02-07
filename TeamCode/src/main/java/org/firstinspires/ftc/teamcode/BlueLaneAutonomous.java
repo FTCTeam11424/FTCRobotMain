@@ -76,7 +76,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
 
 
     //-------------------------------------------------------------------------------------------
-    public String getVuMark() {
+  /*  public String getVuMark() {
         OpenGLMatrix lastLocation = null;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -98,6 +98,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
         }
         return "None"; //Never gets called, but necessary to appease Android Studio
     }
+    */
 
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
@@ -178,8 +179,8 @@ public class BlueLaneAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.075);
-        robot.servo2.setPosition(0.925);
+        robot.servo1.setPosition(0.1);
+        robot.servo2.setPosition(0.9);
     }
     @Override
     public void runOpMode() {
@@ -258,11 +259,12 @@ public class BlueLaneAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
-        sleep(100);
+        sleep(3000);
         //activates Vuforia
-        String vupos = getVuMark();
-        telemetry.addData("VuMark", vupos);
-        telemetry.update();
+      //  String vupos = getVuMark();
+      //  sleep(100);
+      //  telemetry.addData("VuMark", vupos);
+      //  telemetry.update();
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -280,35 +282,35 @@ public class BlueLaneAutonomous extends LinearOpMode {
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
          if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.20, 1000);
+            turnClockwise(0.20, 500);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.20, 1000);
+            turnCounterClockwise(0.20, 500);
             sleep(1000);
 
         } else {
             sleep(1000);
-            turnCounterClockwise(0.20, 1000);
+            turnCounterClockwise(0.20, 500);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.20, 1000);
+            turnClockwise(0.20, 500);
             sleep(1000);
         }
 
-        /* turnCounterClockwise(0.35, 500);
+        turnCounterClockwise(0.35, 1000);
         sleep(100);
-        moveForward(0.35, 1000);
+        moveForward(0.35, 2000);
         sleep(100);
-        turnCounterClockwise(0.35, 500);
+        turnCounterClockwise(0.35, 1000);
         sleep(100);
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-        */
 
-          if (vupos == "LEFT") {
+
+        /*  if (vupos == "LEFT") {
             turnCounterClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);
@@ -353,7 +355,7 @@ public class BlueLaneAutonomous extends LinearOpMode {
             angleOpenClaw();
 
         }
-
+        */
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

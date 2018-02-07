@@ -36,7 +36,7 @@ public class MetalDriveKit {
 
     private double prevailingSpeed = 0.35;
 
-    private HashMap<String, Callable> intents = new HashMap<String, Callable>();
+    public HashMap<String, Runnable> intents = new HashMap<>();
 
     private ElapsedTime period = new ElapsedTime();
 
@@ -82,6 +82,38 @@ public class MetalDriveKit {
         motor2.setPower(npower);
         motor3.setPower(npower);
         motor4.setPower(npower);
+    }
+    public void setMap() {
+        intents.put("ctlr_1_x", new Runnable() {
+            @Override
+            public void run() {
+                prevailingSpeed = 1;
+            }
+        });
+        intents.put("ctlr_1_y", new Runnable() {
+            @Override
+            public void run() {
+                prevailingSpeed = 0.5;
+            }
+        });
+        intents.put("ctlr_1_b", new Runnable() {
+            @Override
+            public void run() {
+                prevailingSpeed = 0.35;
+            }
+        });
+        intents.put("ctlr_1_a", new Runnable() {
+            @Override
+            public void run() {
+                prevailingSpeed = 0.25;
+            }
+        });
+        intents.put("rbt_mov_right", new Runnable() {
+            @Override
+            public void run() {
+                moveRight();
+            }
+        });
     }
     public void waitForTick(long periodMs) {
         long remaining = periodMs - (long) period.milliseconds();
@@ -145,7 +177,7 @@ public class MetalDriveKit {
     }
     public void sendMessage(String msg) {
         //Broken. Not sure why, but intent.call is not valid
-        Callable intent = intents.get(msg);
+        Runnable intent = intents.get(msg);
         /*intent.call();*/
     }
     public void toTop() {
