@@ -72,6 +72,7 @@ public class RedLaneAutonomous extends LinearOpMode {
     DistanceSensor sensorDistance;
     //-------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
+    /*
     public String getVuMark() {
         OpenGLMatrix lastLocation = null;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -94,7 +95,7 @@ public class RedLaneAutonomous extends LinearOpMode {
         }
         return "None"; //Never gets called, but necessary to appease Android Studio
     }
-
+    */
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
         robot.motor2.setPower(-power);
@@ -173,8 +174,8 @@ public class RedLaneAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.075);
-        robot.servo2.setPosition(0.925);
+        robot.servo1.setPosition(0.1);
+        robot.servo2.setPosition(0.9);
     }
     //-------------------------------------------------------------------------------------------
     @Override
@@ -244,12 +245,12 @@ public class RedLaneAutonomous extends LinearOpMode {
 
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
-        waitForStart();
-        sleep(100);
+       // waitForStart();
+        //sleep(100);
         //activates Vuforia
-        String vupos = getVuMark();
-        telemetry.addData("VuMark", vupos);
-        telemetry.update();
+        //String vupos = getVuMark();
+        //telemetry.addData("VuMark", vupos);
+        //telemetry.update();
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -280,7 +281,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             turnClockwise(0.20, 1000);
             sleep(1000);
         }
-       /* sleep(2000);
+        sleep(2000);
         turnClockwise(0.15, 1000);
         sleep(100);
         moveForward(0.35, 1500);
@@ -290,10 +291,10 @@ public class RedLaneAutonomous extends LinearOpMode {
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-        */
 
 
-         if (vupos == "LEFT") {
+
+        /* if (vupos == "LEFT") {
             turnClockwise(0.35, 500);
             sleep(100);
             moveForward(0.35, 1250);
@@ -337,7 +338,7 @@ public class RedLaneAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-
+*/
         //------------------------------------------------------------------------------------------
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
             sleep(40);

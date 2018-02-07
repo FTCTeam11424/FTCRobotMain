@@ -76,6 +76,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
 
 
     //-------------------------------------------------------------------------------------------
+   /*
     public String getVuMark() {
         OpenGLMatrix lastLocation = null;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -95,7 +96,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
         }
         return "None"; //Gets called if the loop expires
     }
-
+*/
     public void moveForward(double power, long time) {
         robot.motor1.setPower(power);
         robot.motor2.setPower(-power);
@@ -174,8 +175,8 @@ public class BlueCornerAutonomous extends LinearOpMode {
         robot.servo2.setPosition(0.5);
     }
     public void angleOpenClaw() {
-        robot.servo1.setPosition(0.075);
-        robot.servo2.setPosition(0.925);
+        robot.servo1.setPosition(0.1);
+        robot.servo2.setPosition(0.9);
     }
 
     @Override
@@ -257,10 +258,10 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.update();
         waitForStart();
         //activates Vuforia
-        sleep(100);
-        String vupos = getVuMark();
-        telemetry.addData("VuMark", vupos);
-        telemetry.update();
+        //sleep(100);
+       // String vupos = getVuMark();
+       // telemetry.addData("VuMark", vupos);
+       // telemetry.update();
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
         robot.motor3.setPower(0);
@@ -278,33 +279,33 @@ public class BlueCornerAutonomous extends LinearOpMode {
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
         if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.20, 1000);
+            turnClockwise(0.20, 500);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.20, 1000);
+            turnCounterClockwise(0.20, 500);
             sleep(1000);
         } else {
             sleep(1000);
-            turnCounterClockwise(0.20, 1000);
+            turnCounterClockwise(0.20, 500);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.20, 1000);
+            turnClockwise(0.20, 500);
             sleep(1000);
         }
-       /* sleep(2000);
-        moveForward(0.35, 500);
+        sleep(2000);
+        moveForward(0.35, 1500);
         sleep(100);
-        turnCounterClockwise(0.35, 500);
+        turnCounterClockwise(0.35, 1000);
         sleep(100);
         moveForward(0.35, 1000);
         sleep(100);
         angleOpenClaw();
-        */
 
 
-        if (vupos == "LEFT") {
+
+       /* if (vupos == "LEFT") {
             moveForward(0.35, 750);
             sleep(100);
             turnCounterClockwise(0.35, 500);
@@ -341,7 +342,7 @@ public class BlueCornerAutonomous extends LinearOpMode {
             sleep(100);
             angleOpenClaw();
         }
-
+ */
         //---------------------------------------------0-------------------------------------------
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
