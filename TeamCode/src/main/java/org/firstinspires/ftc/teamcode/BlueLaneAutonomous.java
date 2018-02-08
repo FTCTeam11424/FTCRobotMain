@@ -299,15 +299,17 @@ public class BlueLaneAutonomous extends LinearOpMode {
             sleep(1000);
         }
 
-        turnCounterClockwise(0.35, 1000);
+        turnCounterClockwise(0.35, 1150);
         sleep(100);
         moveForward(0.35, 2000);
         sleep(100);
         turnCounterClockwise(0.35, 1000);
         sleep(100);
-        moveForward(0.35, 1000);
+        moveForward(0.35, 800);
         sleep(100);
-        angleOpenClaw();
+        openClaw();
+        sleep(2000);
+        moveBackward(0.35, 500);
 
 
         /*  if (vupos == "LEFT") {
