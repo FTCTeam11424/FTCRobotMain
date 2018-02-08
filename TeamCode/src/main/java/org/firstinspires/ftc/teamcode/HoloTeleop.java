@@ -190,7 +190,7 @@ public class HoloTeleop extends OpMode {
             robot.motor4.setPower(motorPower);
         }
         //----------------------------------------------------------------------------------------
-        if (gamepad1.right_bumper == true) {
+        if (gamepad1.right_trigger > 0.5) {
             robot.motor1.setPower(-motorPower);
             robot.motor4.setPower(motorPower);
         }
@@ -201,7 +201,7 @@ public class HoloTeleop extends OpMode {
         }
 
 
-        if (gamepad1.right_trigger > 0.5) {
+        if (gamepad1.right_bumper == true) {
             robot.motor2.setPower(-motorPower);
             robot.motor3.setPower(motorPower);
         }
