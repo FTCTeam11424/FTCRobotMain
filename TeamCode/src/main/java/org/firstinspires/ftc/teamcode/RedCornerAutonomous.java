@@ -267,19 +267,19 @@ public class RedCornerAutonomous extends LinearOpMode {
 
         if (sensorColor.red() > sensorColor.blue() && sensorColor.red() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.20, 500);
+            turnClockwise(0.20, 300);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.20, 500);
+            turnCounterClockwise(0.20, 300);
             sleep(1000);
         } else {
             sleep(1000);
-            turnCounterClockwise(0.20, 500);
+            turnCounterClockwise(0.20, 300);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.20 , 500);
+            turnClockwise(0.20 , 300);
             sleep(1000);
         }
 
