@@ -282,20 +282,20 @@ public class BlueLaneAutonomous extends LinearOpMode {
         telemetry.addData("JewelServoPosition", robot.jewelServo.getPosition());
          if (sensorColor.blue() > sensorColor.red() && sensorColor.blue() > sensorColor.green()) {
             sleep(1000);
-            turnClockwise(0.20, 200);
+            turnClockwise(0.20, 250);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnCounterClockwise(0.20, 200);
+            turnCounterClockwise(0.20, 250);
             sleep(1000);
 
         } else {
             sleep(1000);
-            turnCounterClockwise(0.20, 200);
+            turnCounterClockwise(0.20, 250);
             sleep(1000);
             robot.jewelServo.setPosition(0);
             sleep(1000);
-            turnClockwise(0.20, 200);
+            turnClockwise(0.20, 250);
             sleep(1000);
         }
 
