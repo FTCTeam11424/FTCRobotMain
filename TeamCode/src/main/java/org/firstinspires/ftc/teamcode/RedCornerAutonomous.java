@@ -282,17 +282,16 @@ public class RedCornerAutonomous extends LinearOpMode {
             turnClockwise(0.20 , 250);
             sleep(1000);
         }
-
         sleep(2000);
-        moveForward(0.35, 500);
+        moveForward(0.35, 1400);
         sleep(100);
-        turnClockwise(0.35, 500);
+        turnClockwise(0.35, 1500);
         sleep(100);
-        moveForward(0.35, 1000);
+        moveForward(0.35, 2250);
         sleep(100);
         openClaw();
         sleep(2000);
-        moveBackward(0.35, 500);
+        moveBackward(0.35, 150);
 
 
       /*  if (vupos == "LEFT") {
