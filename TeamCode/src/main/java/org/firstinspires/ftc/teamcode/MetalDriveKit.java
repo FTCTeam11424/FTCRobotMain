@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -20,6 +21,11 @@ import java.util.concurrent.Callable;
  * The Metal Drive Kit is a framework for connecting directly to the robot hardware for driving.
  * Metal is intended to be a more feature-rich replacement for existing drive proxy functions.
  */
+/* Bug guide
+ * Errors:
+ * "Null" object has no member...
+ * You have attempted to use an uninitialized feature. Initialize it properly.
+ */
 
 public class MetalDriveKit {
     //Define servo and motor variables and set them to null
@@ -33,6 +39,11 @@ public class MetalDriveKit {
     public Servo jewelServo = null;
     //Reference to mapped servo/motor controller
     private HardwareMap hwMap = null;
+
+    Gamepad controller1 = null;
+    Gamepad controller2 = null;
+
+    Thread controllerServer = null;
 
     private double prevailingSpeed = 0.35;
 
@@ -77,13 +88,20 @@ public class MetalDriveKit {
         rightClaw.setPosition(MID_SERVO);
     */
     }
+    public void setControllers(Gamepad ct1, Gamepad ct2) {
+        //This MUST be called to handle control swaps.
+        //If this is called, control swaps WILL be handled.
+        //Control swaps will be implemented later
+        controller1 = ct1;
+        controller2 = ct2;
+    }
     public void setMotors(double npower) {
         motor1.setPower(npower);
         motor2.setPower(npower);
         motor3.setPower(npower);
         motor4.setPower(npower);
     }
-    public void setMap() {
+    public void setMapCtlr1() {
         intents.put("ctlr_1_x", new Runnable() {
             @Override
             public void run() {
@@ -112,6 +130,62 @@ public class MetalDriveKit {
             @Override
             public void run() {
                 moveRight();
+            }
+        });
+        intents.put("rbt_rest", new Runnable() {
+            @Override
+            public void run() {
+                rest();
+            }
+        });
+        intents.put("rbt_mov_left", new Runnable() {
+            @Override
+            public void run() {
+                moveLeft();
+            }
+        });
+        intents.put("rbt_mov_forward", new Runnable() {
+            @Override
+            public void run() {
+                moveForward();
+            }
+        });
+        intents.put("rbt_mov_backward", new Runnable() {
+            @Override
+            public void run() {
+                moveBackward();
+            }
+        });
+        intents.put("rbt_trn_right", new Runnable() {
+            @Override
+            public void run() {
+                turnRight();
+            }
+        });
+        intents.put("rbt_trn_left", new Runnable() {
+            @Override
+            public void run() {
+                turnLeft();
+            }
+        });
+        intents.put("serve_controller_movement", new Runnable() { //Handles controller input for robot movement
+            @Override
+            public void run() {
+                controllerServer = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        intrpLoop();
+                    }
+                });
+                controllerServer.start();
+            }
+        });
+        intents.put("stop_serving", new Runnable() {
+            @Override
+            public void run() {
+                if (controllerServer != null) {
+                    controllerServer.interrupt();
+                }
             }
         });
     }
@@ -176,9 +250,8 @@ public class MetalDriveKit {
         }
     }
     public void sendMessage(String msg) {
-        //Broken. Not sure why, but intent.call is not valid
         Runnable intent = intents.get(msg);
-        /*intent.call();*/
+        intent.run();
     }
     public void toTop() {
         //Requires testing of the robot to implement.
@@ -201,6 +274,32 @@ public class MetalDriveKit {
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
                 return vuMark.name();
             }
+        }
+    }
+    public void intrpLoop() {
+        if (Thread.currentThread().isInterrupted()) {
+            return;
+        }
+        if (controller1.left_stick_y == 1) {
+            moveForward();
+        }
+        else if (controller1.left_stick_y == -1) {
+            moveBackward();
+        }
+        else if (controller1.left_stick_x == 1) {
+            moveRight();
+        }
+        else if (controller1.left_stick_x == -1) {
+            moveLeft();
+        }
+        else if (controller2.left_stick_x == 1) {
+            turnRight();
+        }
+        else if (controller2.left_stick_x == -1) {
+            turnLeft();
+        }
+        else {
+            rest();
         }
     }
 }
