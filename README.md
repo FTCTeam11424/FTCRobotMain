@@ -1,4 +1,7 @@
 ## Welcome
+
+INACTIVE BRANCH: This repository is now inactive as the 2017/2018 FIRST season is over. Projects derived from this year should be hosted in their own repositories.
+
 This is the official repository for *FIRST* team 11424. Here, all up-to-date robot control software is hosted for distribution accross all of our developers for increased collaberative capabilities. Important addition information should be written here at all times.
 
 ## Main Developments
